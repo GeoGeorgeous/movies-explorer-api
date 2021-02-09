@@ -1,1 +1,1 @@
-# movies-explorer-api
+Репозиторий для бэкенда movies-explorer
