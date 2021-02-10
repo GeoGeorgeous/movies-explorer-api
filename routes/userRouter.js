@@ -18,3 +18,5 @@ userRouter.put('/me', celebrate({ // Обновляет профиль
       .email({ tlds: { allow: false } }),
   }),
 }), updateUser);
+
+module.exports = userRouter;
