@@ -7,6 +7,7 @@ const movieRouter = require('./routes/movieRouter');
 const NotFoundError = require('./utils/errors/NotFoundError');
 const celebrateErrorHandler = require('./middlewares/celebrateErrorHandler'); // Кастомный error handler для JOI / celebrate
 const errorHandler = require('./middlewares/errorHandler');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 // Для дебага (если нужно проверить работу валидатора запросов и получить подробную ошибку):
 //   1. Расскоментить строку ниже, чтобы включить встроенную проверку ошибок JOI / Celebrate
@@ -26,7 +27,7 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 app.use(bodyParser.json());
-// app.use(requestLogger); // Логгер
+app.use(requestLogger); // Логгер
 /* ----- ----- */
 
 /* ----- @group роутинг */
@@ -38,7 +39,8 @@ app.use('*', () => { // Роутинг 404
 });
 /* ----- ----- */
 
-/* ----- @group обработка ошибок */
+/* ----- @group логгирование и обработка ошибок */
+app.use(errorLogger);
 // app.use(errors()); <- Включить для проверки ошибок JOI / Celebrate
 app.use(celebrateErrorHandler);
 app.use(errorHandler);
