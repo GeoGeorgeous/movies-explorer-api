@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRouter = require('./routes/userRouter');
 const movieRouter = require('./routes/movieRouter');
+const authRouter = require('./routes/authRouter');
 const NotFoundError = require('./utils/errors/NotFoundError');
 const celebrateErrorHandler = require('./middlewares/celebrateErrorHandler'); // Кастомный error handler для JOI / celebrate
 const errorHandler = require('./middlewares/errorHandler');
@@ -41,7 +42,7 @@ app.use(requestLogger); // Логгер
 /* ----- ----- */
 
 /* ----- @group роутинг */
-// app.use('/', authRouter);
+app.use('/', authRouter); // Роутинг авторазиции
 app.use('/users', userRouter); // Роутинг пользователей
 app.use('/movies', movieRouter); // Роутинг карточек
 app.use('*', () => { // Роутинг 404
