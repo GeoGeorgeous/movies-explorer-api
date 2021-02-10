@@ -2,7 +2,7 @@
 ### Movie Explorer REST API 
 
 Backend для Movie Explorer на Node.js (Express).
-* Доступно по: [`https://api.domain.com`](https://api.domain.com)
+* APU доступно по: [`https://api.movies.students.nomoredomains.work`](https://api.movies.students.nomoredomains.work)
 ___
 
 #### Скрипты:
@@ -14,11 +14,11 @@ npm run dev
 `
 ##### Проверка линтером (Eslint):
 `
-npm run start
+npm run lint
 `
 ##### Исправление ошибок линтером:
 `
-npm run start
+npm run lint:fix
 `
 ___
 #### Endpoints:
