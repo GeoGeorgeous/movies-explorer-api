@@ -14,6 +14,7 @@ userRouter.patch('/me', celebrate({ // Обновляет профиль
       .max(30),
     email: Joi
       .string()
-      .required(),
-  }).unknown(true),
+      .required()
+      .email({ tlds: { allow: false } }),
+  }),
 }), updateUser);
