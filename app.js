@@ -1,6 +1,7 @@
 /* ----- @group импорты */
 const express = require('express');
-const helmet = require("helmet");
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -29,6 +30,13 @@ const { PORT = 3000 } = process.env;
 const app = express();
 /* ----- ----- */
 
+/* ----- @group rate limiter */
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+/* ----- ----- */
+
 /* ----- @group база данных */
 mongoose.connect('mongodb://localhost:27017/movie-explorer', { // Подключение БД
   useNewUrlParser: true,
@@ -39,6 +47,7 @@ mongoose.connect('mongodb://localhost:27017/movie-explorer', { // Подключ
 /* ----- ----- */
 
 /* ----- @group мидлверы */
+app.use(limiter);
 app.use(helmet());
 app.use(cors()); // CORS
 app.use(bodyParser.urlencoded({
