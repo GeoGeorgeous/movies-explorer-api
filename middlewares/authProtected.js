@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
 const UnAuthorizedError = require('../utils/errors/UnAuthorizedError');
 
+/*
+* Проверяет наличие токена в заголовках
+* Извелкает и верифицирует его
+*/
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 

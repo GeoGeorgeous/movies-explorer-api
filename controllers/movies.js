@@ -4,7 +4,7 @@ const NotFoundError = require('../utils/errors/NotFoundError');
 const ForbiddenError = require('../utils/errors/ForbiddenError');
 
 const returnMovies = (req, res, next) => { // возвращает все сохранённые пользователем фильмы
-  const owner = req.user._id; // выхватываем владельца карточки
+  const owner = req.user._id; // ID пользователя, отправляющий запрос
   console.log(owner);
   Movie.find({ owner })
     .orFail(() => {
@@ -20,7 +20,7 @@ const createMovie = (req, res, next) => { // создаёт фильм с пер
   const {
     country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail,
   } = req.body; // переданные данные
-  const owner = req.user._id; // выхватываем владельца карточки
+  const owner = req.user._id; // ID пользователя, отправляющий запрос
   Movie.create({
     country,
     director,
@@ -53,7 +53,7 @@ const deleteMovie = (req, res, next) => { // удаляет сохранённы
       // то фильм можно удалить:
       // eslint-disable-next-line eqeqeq
       if (requestedMovie.owner == userId) {
-        Movie.findByIdAndRemove(requestedMovieId) // Удаляем карточку
+        Movie.findByIdAndRemove(requestedMovieId) // Удаляем фильм
           .orFail()
           .then(() => res.send({ message: `Фильм «${requestedMovie.nameRU}» успешно удалён из коллекции сохранённых.` }))
           .catch(next);
