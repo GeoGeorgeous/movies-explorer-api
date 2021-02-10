@@ -1,5 +1,6 @@
 /* ----- @group импорты */
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRouter = require('./routes/userRouter');
@@ -19,6 +20,15 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 /* ----- @group порт и express */
 const { PORT = 3000 } = process.env;
 const app = express();
+/* ----- ----- */
+
+/* ----- @group база данных */
+mongoose.connect('mongodb://localhost:27017/movie-explorer', { // Подключение БД
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+});
 /* ----- ----- */
 
 /* ----- @group мидлверы */
