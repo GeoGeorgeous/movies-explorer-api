@@ -48,11 +48,9 @@ const deleteMovie = (req, res, next) => { // удаляет сохранённы
   const userId = req.user._id; // ID пользователя, отправляющий запрос
   Movie.findById(requestedMovieId)
     .then((requestedMovie) => {
-      console.log(req.params);
       // Если пользователь, отправляющий запрос владелец фильма,
       // то фильм можно удалить:
-      // eslint-disable-next-line eqeqeq
-      if (requestedMovie.owner == userId) {
+      if (requestedMovie.owner.toString() === userId) {
         Movie.findByIdAndRemove(requestedMovieId) // Удаляем фильм
           .orFail()
           .then(() => res.send({ message: `Фильм «${requestedMovie.nameRU}» успешно удалён из коллекции сохранённых.` }))

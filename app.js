@@ -1,5 +1,6 @@
 /* ----- @group импорты */
 const express = require('express');
+const helmet = require("helmet");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -38,6 +39,7 @@ mongoose.connect('mongodb://localhost:27017/movie-explorer', { // Подключ
 /* ----- ----- */
 
 /* ----- @group мидлверы */
+app.use(helmet());
 app.use(cors()); // CORS
 app.use(bodyParser.urlencoded({
   extended: true,
