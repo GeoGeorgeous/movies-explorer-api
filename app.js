@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const authProtected = require('./middlewares/authProtected');
 const userRouter = require('./routes/userRouter');
 const movieRouter = require('./routes/movieRouter');
 const authRouter = require('./routes/authRouter');
@@ -43,8 +44,8 @@ app.use(requestLogger); // Логгер
 
 /* ----- @group роутинг */
 app.use('/', authRouter); // Роутинг авторазиции
-app.use('/users', userRouter); // Роутинг пользователей
-app.use('/movies', movieRouter); // Роутинг карточек
+app.use('/users', authProtected, userRouter); // Роутинг пользователей
+app.use('/movies', authProtected, movieRouter); // Роутинг карточек
 app.use('*', () => { // Роутинг 404
   throw new NotFoundError('Запрашиваемый ресурс не найден.');
 });
