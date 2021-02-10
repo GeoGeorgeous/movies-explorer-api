@@ -5,7 +5,7 @@ const {
 } = require('../controllers/users');
 
 userRouter.get('/me', returnUser); // Возвращает информацию о текущем пользователе
-userRouter.patch('/me', celebrate({ // Обновляет профиль
+userRouter.put('/me', celebrate({ // Обновляет профиль
   body: Joi.object().keys({
     name: Joi
       .string()
