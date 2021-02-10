@@ -68,7 +68,7 @@ const updateUser = (req, res, next) => {
     .orFail(() => {
       throw new BadRequestError('Не получилось обновить данные пользователя, проверьте переданные данные.');
     })
-    .then((updatedUser) => res.send({ data: updatedUser }))
+    .then((updatedUser) => res.send(updatedUser))
     .catch(next);
 };
 

@@ -4,7 +4,12 @@ const NotFoundError = require('../utils/errors/NotFoundError');
 const ForbiddenError = require('../utils/errors/ForbiddenError');
 
 const returnMovies = (req, res, next) => { // возвращает все сохранённые пользователем фильмы
-  Movie.find({})
+  const owner = req.user._id; // выхватываем владельца карточки
+  console.log(owner);
+  Movie.find({ owner })
+    .orFail(() => {
+      throw new NotFoundError('Сохранённые фильмы не найдены.');
+    })
     .then((movies) => {
       res.status(200).send(movies);
     })
@@ -33,28 +38,30 @@ const createMovie = (req, res, next) => { // создаёт фильм с пер
       .status(200)
       .send(newMovie))
     .catch(() => {
-      throw new BadRequestError('Не получилось создать карточку, проверьте переданные данные.');
+      throw new BadRequestError('Не получилось добавить фильм, проверьте переданные данные.');
     })
     .catch(next);
 };
 
 const deleteMovie = (req, res, next) => { // удаляет сохранённый фильм по _id
-  const requestedId = req.params.id;
-  Movie.findById(requestedId)
+  const requestedMovieId = req.params.id; // ID фильма, который нужно удалить
+  const userId = req.user._id; // ID пользователя, отправляющий запрос
+  Movie.findById(requestedMovieId)
     .then((requestedMovie) => {
-      // Если владелец, то фильм можно удалить
-      // requestedMovie.owner — object, req.user._id — String
+      console.log(req.params);
+      // Если пользователь, отправляющий запрос владелец фильма,
+      // то фильм можно удалить:
       // eslint-disable-next-line eqeqeq
-      if (requestedMovie.owner == req.user._id) {
-        Movie.findByIdAndRemove(requestedId) // Удаляем карточку
+      if (requestedMovie.owner == userId) {
+        Movie.findByIdAndRemove(requestedMovieId) // Удаляем карточку
           .orFail()
-          .then(() => res.send({ message: `Карточка ${requestedId} успешно удалена.` }))
+          .then(() => res.send({ message: `Фильм «${requestedMovie.nameRU}» успешно удалён из коллекции сохранённых.` }))
           .catch(next);
       } else {
-        throw new ForbiddenError('Вы не можете удалять чужие карточки.');
+        throw new ForbiddenError('Вы не можете удалять чужие фильмы.');
       }
     })
-    .catch(() => { throw new NotFoundError('Не получилось найти нужную карточку, проверьте идентификатор.'); })
+    .catch(() => { throw new NotFoundError('Не получилось найти нужный фильм, проверьте _id фильма.'); })
     .catch(next);
 };
 

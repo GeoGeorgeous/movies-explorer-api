@@ -43,7 +43,7 @@ movieRouter.post('/', celebrate({
   }).unknown(true),
 }), createMovie);
 
-movieRouter.delete('/:id/likes', celebrate({ // удаляет сохранённый фильм по _id
+movieRouter.delete('/:id', celebrate({ // удаляет сохранённый фильм по _id
   params: Joi.object().keys({
     id: Joi
       .string()

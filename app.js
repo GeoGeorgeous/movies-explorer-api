@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { errors } = require('celebrate');
 const authProtected = require('./middlewares/authProtected');
 const userRouter = require('./routes/userRouter');
 const movieRouter = require('./routes/movieRouter');
@@ -13,8 +14,9 @@ const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 // Для дебага (если нужно проверить работу валидатора запросов и получить подробную ошибку):
-//   1. Расскоментить строку ниже, чтобы включить встроенную проверку ошибок JOI / Celebrate
-//   const { errors } = require('celebrate');
+//   1. Расскоментить строку:
+//      const { errors } = require('celebrate');
+//      чтобы включить встроенную проверку ошибок JOI / Celebrate
 //   2. Закомментить celebrateErrorHandler;
 //   3. Расскоментить app.use(errors());
 /* ----- ----- */
@@ -53,8 +55,8 @@ app.use('*', () => { // Роутинг 404
 
 /* ----- @group логгирование и обработка ошибок */
 app.use(errorLogger);
-// app.use(errors()); <- Включить для проверки ошибок JOI / Celebrate
-app.use(celebrateErrorHandler);
+app.use(errors()); // <- Включить для проверки ошибок JOI / Celebrate
+// app.use(celebrateErrorHandler);
 app.use(errorHandler);
 /* ----- ----- */
 
