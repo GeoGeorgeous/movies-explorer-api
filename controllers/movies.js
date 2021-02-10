@@ -5,7 +5,6 @@ const ForbiddenError = require('../utils/errors/ForbiddenError');
 
 const returnMovies = (req, res, next) => { // возвращает все сохранённые пользователем фильмы
   const owner = req.user._id; // ID пользователя, отправляющий запрос
-  console.log(owner);
   Movie.find({ owner })
     .orFail(() => {
       throw new NotFoundError('Сохранённые фильмы не найдены.');

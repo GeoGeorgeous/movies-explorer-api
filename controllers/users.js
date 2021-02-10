@@ -4,6 +4,7 @@ const User = require('../models/user.js');
 const BadRequestError = require('../utils/errors/BadRequestError');
 const ConflictError = require('../utils/errors/ConflictError');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
 // POST Создаёт пользователя
 const signUpUser = (req, res, next) => {
   // хешируем пароль
@@ -39,7 +40,7 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        'some-secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
       res
