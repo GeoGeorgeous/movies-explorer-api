@@ -2,7 +2,7 @@
 ### Movie Explorer REST API 
 
 Backend для Movie Explorer на Node.js (Express).
-* APU доступно по: [`https://api.movies.students.nomoredomains.work`](https://api.movies.students.nomoredomains.work)
+* REST API доступно по: [`https://api.movies.students.nomoredomains.work`](https://api.movies.students.nomoredomains.work)
 ___
 
 #### Скрипты:
@@ -41,7 +41,7 @@ POST /signin
 GET /users/me
 
 # обновляет информацию о пользователе (email и имя)
-PUT /users/me
+PATCH /users/me
 
 # возвращает все сохранённые пользователем фильмы
 GET /movies
