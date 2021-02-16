@@ -26,6 +26,7 @@ const signUpUser = (req, res, next) => {
         // Если уже используется
         throw new ConflictError('Данный email уже зарегистрирован.');
       } else {
+        console.log(err)
         throw new BadRequestError('Не получилось зарегистрировать пользователя, проверьте переданные данные. ');
       }
     })
