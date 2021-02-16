@@ -64,8 +64,8 @@ const returnUser = (req, res, next) => {
 
 // Контроллер обновляет данные пользователя:
 const updateUser = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
+  const { name, email } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .orFail(() => {
       throw new BadRequestError('Не получилось обновить данные пользователя, проверьте переданные данные.');
     })
