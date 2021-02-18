@@ -55,7 +55,7 @@ app.use(requestLogger); // Логгер
 app.use('/', authRouter); // Роутинг авторазиции
 app.use('/users', authProtected, userRouter); // Роутинг пользователей
 app.use('/movies', authProtected, movieRouter); // Роутинг карточек
-app.use('*', () => { // Роутинг 404
+app.use('*', authProtected, () => { // Роутинг 404
   throw new NotFoundError('Запрашиваемый ресурс не найден.');
 });
 /* ----- ----- */
