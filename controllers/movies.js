@@ -49,7 +49,7 @@ const deleteMovie = (req, res, next) => { // удаляет сохранённы
       // Если пользователь, отправляющий запрос владелец фильма,
       // то фильм можно удалить:
       if (requestedMovie.owner.toString() === userId) {
-        Movie.findByIdAndRemove(requestedMovieId) // Удаляем фильм
+        requestedMovie.remove() // Удаляем фильм
           .orFail()
           .then(() => res.send({ message: `Фильм «${requestedMovie.nameRU}» успешно удалён из коллекции сохранённых.` }))
           .catch(next);
