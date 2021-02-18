@@ -16,6 +16,7 @@ const celebrateErrorHandler = require('./middlewares/celebrateErrorHandler'); //
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { ERR_MSG } = require('./utils/constants');
+const CFG = require('./utils/config');
 
 // Для дебага —
 // если нужно проверить работу валидатора запросов JOI / Celebrate
@@ -29,8 +30,8 @@ const { ERR_MSG } = require('./utils/constants');
 
 /* ----- @group порт и express */
 const {
-  PORT = 3000,
-  MONGO = 'mongodb://localhost:27017/movie-explorer',
+  PORT = CFG.PORT,
+  MONGO = CFG.MONGO,
 } = process.env;
 const app = express();
 /* ----- ----- */
