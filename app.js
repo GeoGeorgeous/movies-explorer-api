@@ -2,10 +2,10 @@
 const express = require('express');
 require('dotenv').config();
 const helmet = require('helmet');
-const limiter = require('./utils/rateLimits')
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const limiter = require('./utils/rateLimits');
 // const { errors } = require('celebrate');
 const authProtected = require('./middlewares/authProtected');
 const userRouter = require('./routes/userRouter');
