@@ -6,16 +6,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const limiter = require('./utils/rateLimits');
+const mainRouter = require('./routes/index');
 // const { errors } = require('celebrate');
-const authProtected = require('./middlewares/authProtected');
-const userRouter = require('./routes/userRouter');
-const movieRouter = require('./routes/movieRouter');
-const authRouter = require('./routes/authRouter');
-const NotFoundError = require('./utils/errors/NotFoundError');
 const celebrateErrorHandler = require('./middlewares/celebrateErrorHandler'); // Кастомный error handler для JOI / celebrate
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { ERR_MSG } = require('./utils/constants');
 const CFG = require('./utils/config');
 
 // Для дебага —
@@ -57,12 +52,7 @@ app.use(bodyParser.json());
 /* ----- ----- */
 
 /* ----- @group роутинг */
-app.use('/', authRouter); // Роутинг авторазиции
-app.use('/users', authProtected, userRouter); // Роутинг пользователей
-app.use('/movies', authProtected, movieRouter); // Роутинг карточек
-app.use('*', authProtected, () => { // Роутинг 404
-  throw new NotFoundError(ERR_MSG.NO_ENDPOINT);
-});
+app.use('/', mainRouter);
 /* ----- ----- */
 
 /* ----- @group логгирование и обработка ошибок */
