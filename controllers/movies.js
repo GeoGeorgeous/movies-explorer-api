@@ -10,7 +10,7 @@ const returnMovies = (req, res, next) => { // возвращает все сох
       throw new NotFoundError('Сохранённые фильмы не найдены.');
     })
     .then((movies) => {
-      res.status(200).send(movies);
+      res.send(movies);
     })
     .catch(next);
 };
@@ -34,7 +34,6 @@ const createMovie = (req, res, next) => { // создаёт фильм с пер
     owner,
   })
     .then((newMovie) => res
-      .status(200)
       .send(newMovie))
     .catch(() => {
       throw new BadRequestError('Не получилось добавить фильм, проверьте переданные данные.');

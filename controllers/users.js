@@ -44,7 +44,6 @@ const login = (req, res, next) => {
         { expiresIn: '7d' },
       );
       res
-        .status(200)
         .send({ token });
     })
     .catch(() => {
@@ -58,7 +57,7 @@ const returnUser = (req, res, next) => {
   const requestedId = req.user._id; // Запрашиваемый ID берём из user;
   User.findById(requestedId)
     .orFail()
-    .then((user) => { res.status(200).send(user); })
+    .then((user) => { res.send(user); })
     .catch(next);
 };
 
