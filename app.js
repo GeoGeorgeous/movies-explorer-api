@@ -27,12 +27,15 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 /* ----- ----- */
 
 /* ----- @group порт и express */
-const { PORT = 3000 } = process.env;
+const {
+  PORT = 3000,
+  MONGO = 'mongodb://localhost:27017/movie-explorer',
+} = process.env;
 const app = express();
 /* ----- ----- */
 
 /* ----- @group база данных */
-mongoose.connect(process.env.MONGO, { // Подключение БД
+mongoose.connect(MONGO, { // Подключение БД
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
