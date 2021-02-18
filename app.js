@@ -41,6 +41,7 @@ mongoose.connect(process.env.MONGO, { // Подключение БД
 /* ----- ----- */
 
 /* ----- @group мидлверы */
+app.use(requestLogger); // Логгер
 app.use(limiter);
 app.use(helmet());
 app.use(cors()); // CORS
@@ -48,7 +49,6 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 app.use(bodyParser.json());
-app.use(requestLogger); // Логгер
 /* ----- ----- */
 
 /* ----- @group роутинг */
