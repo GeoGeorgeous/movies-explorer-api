@@ -4,6 +4,7 @@ const User = require('../models/user.js');
 const BadRequestError = require('../utils/errors/BadRequestError');
 const ConflictError = require('../utils/errors/ConflictError');
 const UnAuthorizedError = require('../utils/errors/UnAuthorizedError');
+const { ERR_MSG } = require('../utils/constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 // POST Создаёт пользователя
@@ -25,9 +26,9 @@ const signUpUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'MongoError') {
         // Если уже используется
-        throw new ConflictError('Данный email уже зарегистрирован.');
+        throw new ConflictError(ERR_MSG.USER.EMAIL_ALREADY_IN_USE);
       } else {
-        throw new BadRequestError('Не получилось зарегистрировать пользователя, проверьте переданные данные. ');
+        throw new BadRequestError(ERR_MSG.USER.BAD_REQUEST_SIGNUP_USER);
       }
     })
     .catch(next);
@@ -48,7 +49,7 @@ const login = (req, res, next) => {
         .send({ token });
     })
     .catch(() => {
-      throw new UnAuthorizedError('Неверный пароль или email.');
+      throw new UnAuthorizedError(ERR_MSG.USER.BAD_LOGIN);
     })
     .catch(next);
 };
@@ -67,7 +68,7 @@ const updateUser = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .orFail(() => {
-      throw new BadRequestError('Не получилось обновить данные пользователя, проверьте переданные данные.');
+      throw new BadRequestError(ERR_MSG.USER.BAD_REQUEST_UPDATE_USER);
     })
     .then((updatedUser) => res.send(updatedUser))
     .catch(next);

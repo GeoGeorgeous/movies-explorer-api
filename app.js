@@ -15,6 +15,7 @@ const NotFoundError = require('./utils/errors/NotFoundError');
 const celebrateErrorHandler = require('./middlewares/celebrateErrorHandler'); // Кастомный error handler для JOI / celebrate
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { ERR_MSG } = require('./utils/constants');
 
 // Для дебага —
 // если нужно проверить работу валидатора запросов JOI / Celebrate
@@ -59,7 +60,7 @@ app.use('/', authRouter); // Роутинг авторазиции
 app.use('/users', authProtected, userRouter); // Роутинг пользователей
 app.use('/movies', authProtected, movieRouter); // Роутинг карточек
 app.use('*', authProtected, () => { // Роутинг 404
-  throw new NotFoundError('Запрашиваемый ресурс не найден.');
+  throw new NotFoundError(ERR_MSG.NO_ENDPOINT);
 });
 /* ----- ----- */
 
