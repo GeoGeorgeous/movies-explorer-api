@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 const BadRequestError = require('../utils/errors/BadRequestError');
 const ConflictError = require('../utils/errors/ConflictError');
+const UnAuthorizedError = require('../utils/errors/UnAuthorizedError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 // POST Создаёт пользователя
@@ -47,7 +48,7 @@ const login = (req, res, next) => {
         .send({ token });
     })
     .catch(() => {
-      throw new BadRequestError('Неверный пароль или email');
+      throw new UnAuthorizedError('Неверный пароль или email.');
     })
     .catch(next);
 };
