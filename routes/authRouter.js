@@ -4,9 +4,6 @@ const { login, signUpUser } = require('../controllers/users');
 
 authRouter.post('/signin', celebrate({ // Авторизация пользователя
   body: Joi.object().keys({
-    name: Joi
-      .string()
-      .required(),
     email: Joi
       .string()
       .required()
