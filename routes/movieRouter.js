@@ -34,6 +34,9 @@ movieRouter.post('/', celebrate({
       .string()
       .pattern(urlRegExp)
       .required(),
+    movieId: Joi
+      .number()
+      .required(),
     nameRU: Joi // название фильма на русском языке. Обязательное поле-строка.
       .string()
       .required(),

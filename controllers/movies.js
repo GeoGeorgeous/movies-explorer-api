@@ -18,7 +18,17 @@ const returnMovies = (req, res, next) => { // возвращает все сох
 
 const createMovie = (req, res, next) => { // создаёт фильм с переданными в теле данными
   const {
-    country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail,
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
   } = req.body; // переданные данные
   const owner = req.user._id; // ID пользователя, отправляющий запрос
   Movie.create({
@@ -32,6 +42,7 @@ const createMovie = (req, res, next) => { // создаёт фильм с пер
     nameRU,
     nameEN,
     thumbnail,
+    movieId,
     owner,
   })
     .then((newMovie) => res
