@@ -23,14 +23,8 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   image: { // ссылка на постер к фильму [URL]
-    type: String,
+    type: Object,
     required: true,
-    validate: {
-      validator(url) {
-        return urlRegExp.test(url);
-      },
-      message: 'URL адрес для постера к фильму указан некорректно.',
-    },
   },
   trailer: { // ссылка на трейлер фильма [URL]
     type: String,

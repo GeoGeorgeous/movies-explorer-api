@@ -2,7 +2,7 @@
 ### Movie Explorer REST API 
 
 Backend для Movie Explorer на Node.js (Express).
-* REST API доступно по: [`https://api.movies.students.nomoredomains.work`](https://api.movies.students.nomoredomains.work)
+* REST API доступно по: [`https://api.movies.nomoredomains.icu/`](https://api.movies.nomoredomains.icu/)
 ___
 
 #### Скрипты:

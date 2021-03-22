@@ -5,10 +5,11 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+// const { errors } = require('celebrate');
 const limiter = require('./utils/rateLimits');
 const mainRouter = require('./routes/index');
-// const { errors } = require('celebrate');
-const celebrateErrorHandler = require('./middlewares/celebrateErrorHandler'); // Кастомный error handler для JOI / celebrate
+const celebrateErrorHandler = require('./middlewares/celebrateErrorHandler');
+// Кастомный error handler для JOI / celebrate
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const CFG = require('./utils/config');
