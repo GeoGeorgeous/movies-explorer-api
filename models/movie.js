@@ -28,7 +28,6 @@ const movieSchema = new mongoose.Schema({
   },
   trailer: { // ссылка на трейлер фильма [URL]
     type: String,
-    required: true,
     validate: {
       validator(url) {
         return urlRegExp.test(url);
@@ -51,7 +50,7 @@ const movieSchema = new mongoose.Schema({
     ref: 'user',
     required: true,
   },
-  movieId: { // id фильма, который содержится в ответе сервиса MoviesExplorer
+  id: { // id фильма, который содержится в ответе сервиса MoviesExplorer
     type: Number,
     required: true,
     unique: true,

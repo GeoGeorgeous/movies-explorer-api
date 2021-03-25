@@ -28,7 +28,7 @@ const createMovie = (req, res, next) => { // создаёт фильм с пер
     nameRU,
     nameEN,
     thumbnail,
-    movieId,
+    id,
   } = req.body; // переданные данные
   const owner = req.user._id; // ID пользователя, отправляющий запрос
   Movie.create({
@@ -42,12 +42,13 @@ const createMovie = (req, res, next) => { // создаёт фильм с пер
     nameRU,
     nameEN,
     thumbnail,
-    movieId,
     owner,
+    id,
   })
     .then((newMovie) => res
       .send(newMovie))
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       throw new BadRequestError(ERR_MSG.MOVIES.BAD_REQUEST_ADD_MOVIE);
     })
     .catch(next);
